@@ -3,162 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LIVE-SpatialVID</title>
+    <title>Stitched Video Frames</title>
     <style>
-        :root {
-            --bg-color: #000000;
-            --text-color: #ffffff;
-        }
         body {
             margin: 0;
-            padding: 0;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            padding: 40px 20px;
+            background-color: #000;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            gap: 40px; /* Vertical gap between rows */
         }
-        header {
-            text-align: center;
-            padding: 2rem 1rem;
+        .scroll-container {
             width: 100%;
-        }
-        h1 {
-            margin: 0;
-            font-size: 2rem;
-            font-weight: 700;
-        }
-        p.subtitle {
-            margin-top: 0.5rem;
-            font-size: 1rem;
-            color: #ccc;
-        }
-        .gallery-container {
-            max-width: 1000px;
-            width: 95%;
-            margin: 1rem auto;
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            padding-bottom: 5rem;
-        }
-        .gif-card {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            background: #111;
+            overflow-x: auto;
+            cursor: grab;
+            user-select: none;
+            border: 1px solid #333;
             border-radius: 8px;
-            overflow: hidden;
+            background: #111;
+            padding: 10px 0; /* Padding inside row */
         }
-        .gif-card img {
-            width: 100%;
-            height: auto;
+        .scroll-container:active {
+            cursor: grabbing;
+        }
+        .scroll-container img {
+            height: 256px; /* Optimized height */
             display: block;
+            pointer-events: none; /* Prevent browser drag of image */
+        }
+        /* Style scrollbar */
+        .scroll-container::-webkit-scrollbar {
+            height: 8px;
+        }
+        .scroll-container::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 4px;
+        }
+        .scroll-container::-webkit-scrollbar-track {
+            background: #222;
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>LIVE on SpatialVID</h1>
-</header>
+<div id="gallery"></div>
 
-<div class="gallery-container">
+<script>
+    const imageFiles = [
+        "stitched/4.jpg",
+        "stitched/5.jpg",
+        "stitched/6.jpg",
+        "stitched/7.jpg",
+        "stitched/9.jpg",
+        "stitched/group_1_id_993410df-aa30-51a7-9a5f-83a73e08b547.jpg",
+        "stitched/group_2_id_0e1259cf-2031-5301-bea2-44e47ce3a60e.jpg",
+        "stitched/group_2_id_4b37a38d-dbb0-5d93-b552-3252787efe6d.jpg"
+    ];
 
-    <div class="gif-card">
-        <img src="1.gif" alt="LIVE animation" loading="lazy">
-    </div>
+    const gallery = document.getElementById('gallery');
 
-    <div class="gif-card">
-        <img src="2.gif" alt="LIVE animation" loading="lazy">
-    </div>
+    imageFiles.forEach(src => {
+        const container = document.createElement('div');
+        container.className = 'scroll-container';
+        
+        const img = document.createElement('img');
+        img.src = src;
+        
+        container.appendChild(img);
+        gallery.appendChild(container);
 
-    <div class="gif-card">
-        <img src="3.gif" alt="LIVE animation" loading="lazy">
-    </div>
+        // Drag to scroll logic
+        let isDown = false;
+        let startX;
+        let scrollLeft;
 
-    <div class="gif-card">
-        <img src="4.gif" alt="LIVE animation" loading="lazy">
-    </div>
-
-    <div class="gif-card">
-        <img src="5.gif" alt="LIVE animation" loading="lazy">
-    </div>
-
-    <div class="gif-card">
-        <img src="6.gif" alt="LIVE animation" loading="lazy">
-    </div>
-
-    <div class="gif-card">
-        <img src="7.gif" alt="LIVE animation" loading="lazy">
-    </div>
-
-    <div class="gif-card">
-        <img src="8.gif" alt="LIVE animation" loading="lazy">
-    </div>
-
-    <div class="gif-card">
-        <img src="9.gif" alt="LIVE animation" loading="lazy">
-    </div>
-
-    <div class="gif-card">
-        <img src="group_1_id_01752745-a995-5d2d-b598-779703866a3b.gif" alt="LIVE animation" loading="lazy">
-    </div>
-
-    <div class="gif-card">
-        <img src="group_1_id_20308277-aca3-591c-b85c-7c9824ef31d4.gif" alt="LIVE animation" loading="lazy">
-    </div>
-
-    <div class="gif-card">
-        <img src="group_1_id_484a99b4-194a-56a9-8997-6d5c499d4b72.gif" alt="LIVE animation" loading="lazy">
-    </div>
-
-    <div class="gif-card">
-        <img src="group_1_id_993410df-aa30-51a7-9a5f-83a73e08b547.gif" alt="LIVE animation" loading="lazy">
-    </div>
-
-    <div class="gif-card">
-        <img src="group_1_id_aae3b625-dd04-5ec0-bb0c-5104a2ffe0a9.gif" alt="LIVE animation" loading="lazy">
-    </div>
-
-    <div class="gif-card">
-        <img src="group_1_id_aeb5b268-1457-5b5c-869c-76fa74dbf511.gif" alt="LIVE animation" loading="lazy">
-    </div>
-
-    <div class="gif-card">
-        <img src="group_1_id_be6913e6-ab13-5e7f-b420-ba9f45e3d29a.gif" alt="LIVE animation" loading="lazy">
-    </div>
-
-    <div class="gif-card">
-        <img src="group_1_id_c66ecbfb-932f-5533-a281-b48d3f5a18bd.gif" alt="LIVE animation" loading="lazy">
-    </div>
-
-    <div class="gif-card">
-        <img src="group_1_id_e5c8d78c-3fa6-5b06-88f3-a5127653d577.gif" alt="LIVE animation" loading="lazy">
-    </div>
-
-    <div class="gif-card">
-        <img src="group_1_id_e7c2aefb-22e6-54c2-b7e8-376b4b4e1af4.gif" alt="LIVE animation" loading="lazy">
-    </div>
-
-    <div class="gif-card">
-        <img src="group_2_id_0e1259cf-2031-5301-bea2-44e47ce3a60e.gif" alt="LIVE animation" loading="lazy">
-    </div>
-
-    <div class="gif-card">
-        <img src="group_2_id_0e45f91a-d136-53d0-b8c7-a2edf8b613a6.gif" alt="LIVE animation" loading="lazy">
-    </div>
-
-    <div class="gif-card">
-        <img src="group_2_id_4b37a38d-dbb0-5d93-b552-3252787efe6d.gif" alt="LIVE animation" loading="lazy">
-    </div>
-
-    <div class="gif-card">
-        <img src="group_2_id_5a8e46d2-6077-5e78-a73b-b3fdfe2b03e8.gif" alt="LIVE animation" loading="lazy">
-    </div>
-
-</div>
+        container.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - container.offsetLeft;
+            scrollLeft = container.scrollLeft;
+        });
+        container.addEventListener('mouseleave', () => {
+            isDown = false;
+        });
+        container.addEventListener('mouseup', () => {
+            isDown = false;
+        });
+        container.addEventListener('mousemove', (e) => {
+            if(!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - container.offsetLeft;
+            const walk = (x - startX) * 2; // Drag speed
+            container.scrollLeft = scrollLeft - walk;
+        });
+    });
+</script>
 
 </body>
 </html>
